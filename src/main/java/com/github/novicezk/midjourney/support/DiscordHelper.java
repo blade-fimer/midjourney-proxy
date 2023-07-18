@@ -3,6 +3,7 @@ package com.github.novicezk.midjourney.support;
 import cn.hutool.core.text.CharSequenceUtil;
 import com.github.novicezk.midjourney.ProxyProperties;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpHost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpStatus;
@@ -112,4 +113,27 @@ public class DiscordHelper {
 		return new RestTemplate(factory);
 	}
 
+	public RestTemplate getProxyRestTemplate() {
+	    final String username = "chacha20-ietf-poly1305";
+		final String password = "4c225d3c-172f-37ad-8a13-88d94c009982";
+		final String proxyUrl = "t3.gzy003.top";
+		final int port = 53301;
+
+		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		credsProvider.setCredentials( 
+			new AuthScope(proxyUrl, port), 
+			new UsernamePasswordCredentials(username, password)
+		);
+
+		HttpHost myProxy = new HttpHost(proxyUrl, port);
+		HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+
+		clientBuilder.setProxy(myProxy).setDefaultCredentialsProvider(credsProvider).disableCookieManagement();
+
+		HttpClient httpClient = clientBuilder.build();
+		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+		factory.setHttpClient(httpClient);
+
+		return new RestTemplate(factory);
+	}
 }

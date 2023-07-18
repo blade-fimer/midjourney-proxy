@@ -211,7 +211,7 @@ public class DiscordServiceImpl implements DiscordService {
 		headers.setContentType(MediaType.valueOf(dataUrl.getMimeType()));
 		headers.setContentLength(dataUrl.getData().length);
 		HttpEntity<byte[]> requestEntity = new HttpEntity<>(dataUrl.getData(), headers);
-		new RestTemplate().put(uploadUrl, requestEntity);
+		getProxyRestTemplate().put(uploadUrl, requestEntity);
 	}
 
 	private ResponseEntity<String> postJson(String paramsStr) {
@@ -224,7 +224,7 @@ public class DiscordServiceImpl implements DiscordService {
 		headers.set("Authorization", this.discordUserToken);
 		headers.add("User-Agent", this.userAgent);
 		HttpEntity<String> httpEntity = new HttpEntity<>(paramsStr, headers);
-		return new RestTemplate().postForEntity(url, httpEntity, String.class);
+		return getProxyRestTemplate().postForEntity(url, httpEntity, String.class);
 	}
 
 	private Message<Void> postJsonAndCheckStatus(String paramsStr) {
