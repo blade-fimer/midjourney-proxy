@@ -10,7 +10,6 @@ import com.github.novicezk.midjourney.Constants;
 import com.github.novicezk.midjourney.ProxyProperties;
 import com.github.novicezk.midjourney.enums.TaskStatus;
 import com.github.novicezk.midjourney.support.Task;
-import com.github.novicezk.midjourney.support.DiscordHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -71,7 +70,7 @@ public class NotifyServiceImpl implements NotifyService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> httpEntity = new HttpEntity<>(paramsJson, headers);
-		return getProxyRestTemplate().postForEntity(notifyHook, httpEntity, String.class);
+		return new RestTemplate().postForEntity(notifyHook, httpEntity, String.class);
 	}
 
 }
