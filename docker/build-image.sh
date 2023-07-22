@@ -30,5 +30,5 @@ docker build . -t midjourney-proxy:${VERSION}
 
 rm -rf application dependencies snapshot-dependencies spring-boot-loader app.jar
 
-docker tag midjourney-proxy:${VERSION} novicezk/midjourney-proxy-${ARCH}:${VERSION}
-docker push novicezk/midjourney-proxy-${ARCH}:${VERSION}
+docker tag midjourney-proxy:${VERSION} blade-fimer/midjourney-proxy-${ARCH}:${VERSION}
+docker push blade-fimer/midjourney-proxy-${ARCH}:${VERSION}
